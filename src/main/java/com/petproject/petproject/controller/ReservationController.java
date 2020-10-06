@@ -31,45 +31,45 @@ public class ReservationController {
     }
 
 
-    @GetMapping("/users")
+    @GetMapping("/reservations")
     public String findAll(Model model){
         List<Reservation> reservations = reservationService.findAll();
-        model.addAttribute("users", reservations);
-        return "user-list";
+        model.addAttribute("reservations",reservations);
+        return "reservation-list";
     }
 
-    @GetMapping("/user-create")
-    @PreAuthorize("hasAuthority('developers:write')")
+    @GetMapping("/reservation-create")
+    @PreAuthorize("hasAuthority('users:write')")
     public String createUserForm(Reservation reservation){
-        return "user-create";
+        return "reservation-create";
     }
 
-    @PostMapping("/user-create")
-    @PreAuthorize("hasAuthority('developers:write')")
+    @PostMapping("/reservation-create")
+    @PreAuthorize("hasAuthority('users:write')")
     public String createUser(Reservation reservation){
         reservationService.saveUser(reservation);
-        return "redirect:users";
+        return "redirect:reservations";
     }
 
-    @GetMapping("user-delete/{id}")
-    @PreAuthorize("hasAuthority('developers:write')")
+    @GetMapping("reservation-delete/{id}")
+    @PreAuthorize("hasAuthority('users:write')")
     public String deleteUser(@PathVariable("id") Long id){
         reservationService.deleteById(id);
-        return "redirect:/users";
+        return "redirect:/reservations";
     }
 
-    @GetMapping("/user-update/{id}")
-    @PreAuthorize("hasAuthority('developers:write')")
+    @GetMapping("/reservation-update/{id}")
+    @PreAuthorize("hasAuthority('users:write')")
     public String updateUserForm(@PathVariable("id") Long id, Model model){
         Reservation reservation = reservationService.findById(id);
         model.addAttribute("user", reservation);
-        return "user-update";
+        return "reservation-update";
     }
 
-    @PostMapping("/user-update")
-    @PreAuthorize("hasAuthority('developers:write')")
+    @PostMapping("/reservation-update")
+    @PreAuthorize("hasAuthority('users:write')")
     public String updateUser(Reservation reservation){
         reservationService.saveUser(reservation);
-        return "redirect:users";
+        return "redirect:reservations";
     }
 }
