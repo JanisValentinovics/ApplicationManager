@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <meta charset="UTF-8">
-<title>Create user</title>
+<title>Create reservation</title>
 </head>
 <body>
-<form action="#" th:action="@{user-update}" th:object="${user}" method="post">
+<form action="#" th:action="@{reservation-update}" th:object="${reservation}" method="post">
     <label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>
