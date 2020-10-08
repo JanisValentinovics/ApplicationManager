@@ -19,4 +19,5 @@ public class Reservation {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+
 }

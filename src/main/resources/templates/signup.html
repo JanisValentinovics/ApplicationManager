@@ -1,0 +1,32 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+
+    <title>Customer Registration</title>
+</head>
+<body>
+<div class="container">
+    <form class="form-signin" method="post" action="/auth/create-new-user">
+        <h2 class="form-signin-heading">Login</h2>
+        <p>
+            <label for="firstname">Firstname</label>
+            <input type="text" id="firstname" name="firstname" class="form-control" placeholder="Firstname" required>
+        </p>
+        <p>
+            <label for="lastname">Lastname</label>
+            <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Lastname" required>
+        </p>
+        <p>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" class="form-control" placeholder="Email" required>
+        </p>
+
+        <p>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        </p>
+        <button class="myButton" type="submit">Register!</button>
+    </form>
+</div>
+</body>
+</html>

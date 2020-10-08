@@ -24,7 +24,7 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
-    public Reservation saveUser(Reservation reservation){
+    public Reservation saveReservation(Reservation reservation){
         return reservationRepository.save(reservation);
     }
 

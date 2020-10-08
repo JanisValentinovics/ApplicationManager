@@ -26,4 +26,9 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
+    public Roles getRoles() {
+        return roles;
+    }
+
+
 }

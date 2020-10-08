@@ -2,11 +2,11 @@ package com.petproject.petproject.security;
 
 import com.petproject.petproject.model.Status;
 import com.petproject.petproject.model.User;
-import jdk.jfr.DataAmount;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
 import java.util.List;
 

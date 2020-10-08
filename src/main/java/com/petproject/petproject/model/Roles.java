@@ -13,7 +13,6 @@ public enum Roles {
 
     private final Set<Permission> permissionSet;
 
-
     Roles(Set<Permission> permissions) {
         this.permissionSet=permissions;
     }
