@@ -40,12 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/animate/**").permitAll()
                 .antMatchers("/bootstarp/**").permitAll()
+                .antMatchers("/signup").permitAll()
+                .antMatchers("/create-new-user").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/auth/success")
+                .defaultSuccessUrl("/success")
                 .and()
                 .logout().permitAll();
     }

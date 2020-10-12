@@ -4,7 +4,7 @@
 <title>Create reservation</title>
 </head>
 <body>
-<form action="#" th:action="@{reservation-update}" th:object="${reservation}" method="post">
+<form action="#" th:action="@{/reservation-update}" th:object="${reservation}" method="post">
     <label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>

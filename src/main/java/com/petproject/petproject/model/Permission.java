@@ -1,8 +1,8 @@
 package com.petproject.petproject.model;
 
 public enum Permission {
-    USERS_READ("users:read"),
-    USERS_WRITE("users:write");
+    USERS_READ("reservations:read"),
+    USERS_WRITE("reservations:write");
 
     private final String permission;
 

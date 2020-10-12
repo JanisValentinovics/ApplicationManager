@@ -32,7 +32,7 @@
 					</span>
 
                 <div class="wrap-input2 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input class="input2" type="text"  id="email" name="email">
+                    <input class="input2" type="text"  id="username" name="username">
                     <span class="focus-input2" data-placeholder="EMAIL"></span>
                 </div>
                 <div class="wrap-input2 validate-input" data-validate = "Password is required">
@@ -50,7 +50,7 @@
                 </div>
                 <p align="center">Don`t have account?</p>
             </form>
-            <form th:method="post" action="/login">
+            <form class="contact2-form validate-form" method="get" action="/signup">
                 <div class="container-contact2-form-btn">
                     <div class="wrap-contact2-form-btn">
                         <div class="contact2-form-bgbtn"></div>
@@ -60,32 +60,17 @@
                     </div>
                 </div>
             </form>
+
         </div>
     </div>
 </div>
 
 
-
-
-<!--===============================================================================================-->
 <script th:src="@{vendor/jquery/jquery-3.2.1.min.js}"></script>
-<!--===============================================================================================-->
 <script th:src="@{vendor/bootstrap/js/popper.js}"></script>
 <script th:src="@{vendor/bootstrap/js/bootstrap.min.js}"></script>
-<!--===============================================================================================-->
 <script th:src="@{vendor/select2/select2.min.js}"></script>
-<!--===============================================================================================-->
 <script th:src="@{js/main.js}"></script>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-23581568-13');
-</script>
 
 </body>
 </html>

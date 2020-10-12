@@ -3,6 +3,7 @@ import com.petproject.petproject.model.Reservation;
 import com.petproject.petproject.model.Roles;
 import com.petproject.petproject.model.Status;
 import com.petproject.petproject.model.User;
+import com.petproject.petproject.security.SecurityUser;
 import com.petproject.petproject.security.UserDetailsServiceImpl;
 import com.petproject.petproject.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,70 +32,79 @@ public class ReservationController {
 
     @GetMapping("/")
     public String redirectToLogin(){
-        return "index";
+        return "login";
     }
 
 
     @GetMapping("/reservations")
-    @PreAuthorize("hasAuthority('users:read')")
-    public String findAll(Model model){
+    @PreAuthorize("hasAuthority('reservations:read')")
+    public String findAll(Model model ){
         List<Reservation> reservations = reservationService.findAll();
         model.addAttribute("reservations",reservations);
         return "reservation-list";
     }
 
     @GetMapping("/reservation-create")
-    @PreAuthorize("hasAuthority('users:write')")
+    @PreAuthorize("hasAuthority('reservations:write')")
     public String createReservationForm(Reservation reservation){
         return "reservation-create";
     }
 
     @PostMapping("/reservation-create")
-    @PreAuthorize("hasAuthority('users:write')")
+    @PreAuthorize("hasAuthority('reservations:write')")
     public String createReservation(Reservation reservation){
         reservationService.saveReservation(reservation);
         return "redirect:reservations";
     }
 
     @GetMapping("reservation-delete/{id}")
-    @PreAuthorize("hasAuthority('users:write')")
+    @PreAuthorize("hasAuthority('reservations:write')")
     public String deleteReservation(@PathVariable("id") Long id){
         reservationService.deleteById(id);
         return "redirect:/reservations";
     }
 
     @GetMapping("/reservation-update/{id}")
-    @PreAuthorize("hasAuthority('users:write')")
+    @PreAuthorize("hasAuthority('reservations:write')")
     public String updateReservationForm(@PathVariable("id") Long id, Model model){
         Reservation reservation = reservationService.findById(id);
-        model.addAttribute("user", reservation);
+        model.addAttribute("reservation", reservation);
         return "reservation-update";
     }
 
     @PostMapping("/reservation-update")
-    @PreAuthorize("hasAuthority('users:write')")
+    @PreAuthorize("hasAuthority('reservations:write')")
     public String updateReservation(Reservation reservation){
         reservationService.saveReservation(reservation);
         return "redirect:reservations";
     }
     @GetMapping("/signup")
     public String getSignUpPage(){
-        return "index";
+        return "signup";
     }
 
     @PostMapping("/create-new-user")
     public String createUser(@ModelAttribute("user") User user){
         user.setRoles(Roles.USER);
         user.setStatus(Status.ACTIVE);
+        System.out.println(user.getEmail());
+        System.out.println(user.getStatus());
+        System.out.println(user.getRoles());
+        System.out.println(user.getLastname());
+        System.out.println(user.getFirstname());
         userDetailsServiceImpl.saveSimpleUser(user);
-        return "redirect:/auth/login";
+        return "redirect:/success";
     }
     @GetMapping("/login")
     public String getSignInPage(){
+
+
+
+
         return "login";
     }
     @GetMapping("/success")
     public String getSuccessPage(){
-        return "login";
+        return "success";
     }
 }
