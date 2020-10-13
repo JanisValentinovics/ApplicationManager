@@ -1,7 +1,5 @@
 package com.petproject.petproject.repository;
-
 import com.petproject.petproject.model.User;
-import com.petproject.petproject.security.SecurityUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

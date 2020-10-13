@@ -33,8 +33,8 @@
 
 
     <div th:case="*">
-        <h2 th:align="center">Reservations</h2>
-        <table>
+        <h2 th:align="center">Available Reservations</h2>
+        <table class="table-style">
             <thead>
             <tr>
                 <th>Id</th>
@@ -44,18 +44,50 @@
             </thead>
             <tbody>
             <tr th:each="reservation : ${reservations}">
+                <div th:if="${reservation.isAvailable() == true}">
                 <td th:text="${reservation.id}"></td>
                 <td th:text="${reservation.firstName}"></td>
                 <td th:text="${reservation.lastName}"></td>
 
                 <div ><div sec:authorize="hasAuthority('reservations:write')"><td><a th:href="@{reservation-update/{id}(id=${reservation.id})}">Edit</a></td>
                     <td><a th:href="@{reservation-delete/{id}(id=${reservation.id})}">Delete</a></td></div>
-                    <td><a href="#" class="apply-btn" th:border="3px">Apply</a></td>
-                </div>
+                    <td><a th:href="@{apply/{id}(id=${reservation.id})}"  class="apply-btn" >Apply</a></td>
+                </div></div></tr>
 
-            </tr>
             </tbody>
         </table>
+        <div sec:authorize="!hasAuthority('reservations:write')">
+        <h2  th:align="center">Your Reservations</h2>
+        <table class="table-style">
+            <tbody>
+            <tr th:each="reservation : ${bookings}">
+                <div th:if="${reservation.isAvailable() == false}">
+                    <td th:text="${reservation.id}"></td>
+                    <td th:text="${reservation.firstName}"></td>
+                    <td th:text="${reservation.lastName}"></td>
+                    <td><a th:href="@{cancel/{id}(id=${reservation.id})}"  class="cncl-btn" >Cancel</a></td>
+                    </div></tr>
+            </tbody>
+        </table>
+        </div>
+        <div sec:authorize="hasAuthority('reservations:write')">
+            <h2 th:align="center">All Bookings</h2>
+            <table class="table-style">
+                <tbody>
+                <tr th:each="reservation : ${reservations}">
+                    <div th:if="${reservation.isAvailable() == false}">
+                        <td th:text="${reservation.id}"></td>
+                        <td th:text="${reservation.firstName}"></td>
+                        <td th:text="${reservation.lastName}"></td>
+
+                        <div ><div sec:authorize="hasAuthority('reservations:write')"><td><a th:href="@{reservation-update/{id}(id=${reservation.id})}">Edit</a></td>
+                            <td><a th:href="@{reservation-delete/{id}(id=${reservation.id})}">Delete</a></td></div>
+                            <td><a th:href="@{cancel/{id}(id=${reservation.id})}"  class="cncl-btn" >Cancel</a></td>
+                        </div></div></tr>
+
+                </tbody>
+            </table>
+        </div>
     </div>
     <p sec:authorize="hasAuthority('reservations:write')"><a href="reservation-create">Create reservation</a></p>
         <form action="/logout" method="POST">

@@ -1,17 +1,19 @@
 package com.petproject.petproject.controller;
-import com.petproject.petproject.model.Reservation;
-import com.petproject.petproject.model.Roles;
-import com.petproject.petproject.model.Status;
-import com.petproject.petproject.model.User;
+import com.petproject.petproject.model.*;
 import com.petproject.petproject.security.SecurityUser;
 import com.petproject.petproject.security.UserDetailsServiceImpl;
+import com.petproject.petproject.service.BookingService;
 import com.petproject.petproject.service.ReservationService;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -19,10 +21,12 @@ import java.util.List;
 public class ReservationController {
     private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final ReservationService reservationService;
+    private final BookingService bookingService;
     @Autowired
-    public ReservationController(UserDetailsServiceImpl userDetailsServiceImpl, ReservationService reservationService) {
+    public ReservationController(UserDetailsServiceImpl userDetailsServiceImpl, ReservationService reservationService, BookingService bookingService) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.reservationService = reservationService;
+        this.bookingService = bookingService;
     }
 
     @GetMapping("/error")
@@ -40,7 +44,10 @@ public class ReservationController {
     @PreAuthorize("hasAuthority('reservations:read')")
     public String findAll(Model model ){
         List<Reservation> reservations = reservationService.findAll();
+         List<Booking> userBookings = bookingService.getAllUserBookings(getCurrentSessionUsername());
+           List<Reservation> userReservations = reservationService.findAllUserReservations(userBookings);
         model.addAttribute("reservations",reservations);
+        model.addAttribute("bookings", userReservations);
         return "reservation-list";
     }
 
@@ -85,26 +92,42 @@ public class ReservationController {
 
     @PostMapping("/create-new-user")
     public String createUser(@ModelAttribute("user") User user){
-        user.setRoles(Roles.USER);
-        user.setStatus(Status.ACTIVE);
-        System.out.println(user.getEmail());
-        System.out.println(user.getStatus());
-        System.out.println(user.getRoles());
-        System.out.println(user.getLastname());
-        System.out.println(user.getFirstname());
         userDetailsServiceImpl.saveSimpleUser(user);
         return "redirect:/success";
     }
     @GetMapping("/login")
     public String getSignInPage(){
-
-
-
-
         return "login";
     }
     @GetMapping("/success")
     public String getSuccessPage(){
         return "success";
     }
+
+    @GetMapping("/apply/{id}")
+    @PreAuthorize("hasAuthority('reservations:read')")
+    public String makeBooking(@PathVariable("id") Long reservationId ){
+        bookingService.saveBooking(bookingService.getNewBooking(reservationId,getCurrentSessionUsername()));
+        reservationService.setNotActive(reservationId);
+        return "redirect:/reservations";
+    }
+    @GetMapping("/cancel/{id}")
+    @PreAuthorize("hasAuthority('reservations:read')")
+    public String cancelBooking(@PathVariable("id") Long reservationId ){
+        reservationService.setIsActive(reservationId);
+        bookingService.deleteByReservationId(reservationId, getCurrentSessionUsername());
+        return "redirect:/reservations";
+    }
+
+    private String getCurrentSessionUsername(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername(); }
+        else {
+            username = principal.toString();
+        }
+        return username;
+    }
+
 }
