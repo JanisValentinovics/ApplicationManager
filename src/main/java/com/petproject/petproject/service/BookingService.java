@@ -17,9 +17,7 @@ public class BookingService {
     public BookingService(BookingRepository bookingRepository) {
         this.bookingRepository = bookingRepository;
     }
-//    public List<Booking> getUserBookings(Long id){
-//        return bookingRepository;
-//    }
+
     public Booking saveBooking(Booking booking){
        return bookingRepository.save(booking);
     }

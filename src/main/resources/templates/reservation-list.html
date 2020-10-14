@@ -38,16 +38,21 @@
             <thead>
             <tr>
                 <th>Id</th>
-                <th>First name</th>
-                <th>Last name</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Time</th>
+
+
             </tr>
             </thead>
             <tbody>
             <tr th:each="reservation : ${reservations}">
                 <div th:if="${reservation.isAvailable() == true}">
                 <td th:text="${reservation.id}"></td>
-                <td th:text="${reservation.firstName}"></td>
-                <td th:text="${reservation.lastName}"></td>
+                <td th:text="${reservation.serviceName}"></td>
+                <td th:text="${reservation.date}"></td>
+                    <td th:text="${reservation.time}"></td>
+
 
                 <div ><div sec:authorize="hasAuthority('reservations:write')"><td><a th:href="@{reservation-update/{id}(id=${reservation.id})}">Edit</a></td>
                     <td><a th:href="@{reservation-delete/{id}(id=${reservation.id})}">Delete</a></td></div>
@@ -63,8 +68,9 @@
             <tr th:each="reservation : ${bookings}">
                 <div th:if="${reservation.isAvailable() == false}">
                     <td th:text="${reservation.id}"></td>
-                    <td th:text="${reservation.firstName}"></td>
-                    <td th:text="${reservation.lastName}"></td>
+                    <td th:text="${reservation.serviceName}"></td>
+                    <td th:text="${reservation.date}"></td>
+                    <td th:text="${reservation.time}"></td>
                     <td><a th:href="@{cancel/{id}(id=${reservation.id})}"  class="cncl-btn" >Cancel</a></td>
                     </div></tr>
             </tbody>
@@ -77,9 +83,9 @@
                 <tr th:each="reservation : ${reservations}">
                     <div th:if="${reservation.isAvailable() == false}">
                         <td th:text="${reservation.id}"></td>
-                        <td th:text="${reservation.firstName}"></td>
-                        <td th:text="${reservation.lastName}"></td>
-
+                        <td th:text="${reservation.serviceName}"></td>
+                        <td th:text="${reservation.date}"></td>
+                        <td th:text="${reservation.time}"></td>
                         <div ><div sec:authorize="hasAuthority('reservations:write')"><td><a th:href="@{reservation-update/{id}(id=${reservation.id})}">Edit</a></td>
                             <td><a th:href="@{reservation-delete/{id}(id=${reservation.id})}">Delete</a></td></div>
                             <td><a th:href="@{cancel/{id}(id=${reservation.id})}"  class="cncl-btn" >Cancel</a></td>

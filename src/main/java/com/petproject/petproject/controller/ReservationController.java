@@ -12,8 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -72,7 +70,7 @@ public class ReservationController {
     }
 
     @GetMapping("/reservation-update/{id}")
-    @PreAuthorize("hasAuthority('reservations:write')")
+    @PreAuthorize("hasAuthority('reservations:read')")
     public String updateReservationForm(@PathVariable("id") Long id, Model model){
         Reservation reservation = reservationService.findById(id);
         model.addAttribute("reservation", reservation);
@@ -84,39 +82,6 @@ public class ReservationController {
     public String updateReservation(Reservation reservation){
         reservationService.saveReservation(reservation);
         return "redirect:reservations";
-    }
-    @GetMapping("/signup")
-    public String getSignUpPage(){
-        return "signup";
-    }
-
-    @PostMapping("/create-new-user")
-    public String createUser(@ModelAttribute("user") User user){
-        userDetailsServiceImpl.saveSimpleUser(user);
-        return "redirect:/success";
-    }
-    @GetMapping("/login")
-    public String getSignInPage(){
-        return "login";
-    }
-    @GetMapping("/success")
-    public String getSuccessPage(){
-        return "success";
-    }
-
-    @GetMapping("/apply/{id}")
-    @PreAuthorize("hasAuthority('reservations:read')")
-    public String makeBooking(@PathVariable("id") Long reservationId ){
-        bookingService.saveBooking(bookingService.getNewBooking(reservationId,getCurrentSessionUsername()));
-        reservationService.setNotActive(reservationId);
-        return "redirect:/reservations";
-    }
-    @GetMapping("/cancel/{id}")
-    @PreAuthorize("hasAuthority('reservations:read')")
-    public String cancelBooking(@PathVariable("id") Long reservationId ){
-        reservationService.setIsActive(reservationId);
-        bookingService.deleteByReservationId(reservationId, getCurrentSessionUsername());
-        return "redirect:/reservations";
     }
 
     private String getCurrentSessionUsername(){

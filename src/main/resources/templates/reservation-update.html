@@ -8,11 +8,14 @@
     <label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>
-    <label for="firstName">First name</label>
-    <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name">
+    <label for="serviceName">First name</label>
+    <input type="text" th:field="*{serviceName}" id="serviceName" placeholder="Service Name">
     <br/>
-    <label for="lastName">Last name</label>
-    <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name">
+    <label for="date">Date</label>
+    <input type="text" th:field="*{date}" id="date" >
+    <br/>
+    <label for="time">Time</label>
+    <input type="text" th:field="*{time}" id="time" >
     <br/>
     <input type="submit" value="Update User">
 </form>
