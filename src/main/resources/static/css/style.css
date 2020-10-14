@@ -22,9 +22,59 @@
     position:relative;
     top:1px;
 }
-.table-style {
+table{
     width: 100%;
+    border: 10px solid transparent;
+
 }
+th, td {
+    border: 10px solid transparent;
+    vertical-align: center;
+}
+.td-id{
+    width: 5%;
+}
+.td-name{
+    width: 20%;
+}
+.td-time{
+    width: 15%;
+}
+.td-date{
+    width: 15%;
+}
+.td-edit{
+    width: 10%;
+}
+.td-delete{
+    width: 15%;
+}
+.td-button{
+    width: 20%;
+}
+.td-id2{
+    width: 5%;
+}
+.td-name2{
+    width: 20%;
+}
+.td-date2{
+    width: 15%;
+}
+.td-time2{
+    width: 15%;
+}
+.td-edit2{
+    width: 10%;
+}
+.td-delete2{
+    width: 15%;
+}
+.td-button2{
+    width: 20%;
+}
+
+
 .cncl-btn {
     box-shadow: 0px 10px 14px -7px #eb5b5b;
     background:linear-gradient(to bottom, #eb4969 5%, #bd2626 100%);
@@ -48,3 +98,12 @@
 .cncl-btn:active {
     position:relative;
     top:1px;}
+.btn-container{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 45%;
+}
