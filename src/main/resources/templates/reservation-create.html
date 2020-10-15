@@ -27,10 +27,10 @@
     <div class="container-contact2">
         <div class="wrap-contact2">
             <h2 th:align="center">Create Reservation</h2>
-            <form action="#" th:action="@{reservation-create}" th:object="${reservation}" method="post">
+            <form action="#" th:align="center" th:action="@{reservation-create}" th:object="${reservation}" method="post">
 
                 <!-- Select Basic -->
-                <div class="form-group">
+                <div class="form-group" th:align="center">
                     <label class="col-md-4 control-label" >Service</label>
                     <div class="col-md-4">
                         <select th:field="*{serviceName}" id="firstName" name="firstName" class="form-control">
@@ -42,13 +42,13 @@
 
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" th:align="center">
                     <label class="col-md-4 control-label" >Date</label>
                     <div class="col-md-4" >
                     <input class="form-control" th:field="*{date}" type="text"  id="date" name="date">
                 </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" th:align="center">
                     <label class="col-md-4 control-label" >Time</label>
                     <div class="col-md-4" >
                         <input class="form-control" th:field="*{time}" type="text"  id="time" name="time">
@@ -64,12 +64,12 @@
                     </div>
                 </div>
             </form>
-            <form action="/logout" method="POST">
+            <form action="/reservations" method="get">
                 <div class="container-contact2-form-btn">
                     <div class="wrap-contact2-form-btn">
                         <div class="contact2-form-bgbtn"></div>
-                        <button class="contact2-form-btn" type="submit">
-                            Logout
+                        <button  class="contact2-form-btn" type="submit">
+                            Cancel
                         </button>
                     </div>
                 </div>

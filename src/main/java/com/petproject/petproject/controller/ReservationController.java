@@ -70,7 +70,7 @@ public class ReservationController {
     }
 
     @GetMapping("/reservation-update/{id}")
-    @PreAuthorize("hasAuthority('reservations:read')")
+    @PreAuthorize("hasAuthority('reservations:write')")
     public String updateReservationForm(@PathVariable("id") Long id, Model model){
         Reservation reservation = reservationService.findById(id);
         model.addAttribute("reservation", reservation);
@@ -78,10 +78,9 @@ public class ReservationController {
     }
 
     @PostMapping("/reservation-update")
-    @PreAuthorize("hasAuthority('reservations:write')")
     public String updateReservation(Reservation reservation){
         reservationService.saveReservation(reservation);
-        return "redirect:reservations";
+        return "redirect:/reservations";
     }
 
     private String getCurrentSessionUsername(){

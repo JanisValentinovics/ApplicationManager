@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/bootstarp/**").permitAll()
                 .antMatchers("/signup").permitAll()
                 .antMatchers("/create-new-user").permitAll()
+                .antMatchers("/reservation-update/**").hasAuthority("reservations:write")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -56,6 +57,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/resources/**","/fonts/**","/css/**","/vendor/**","/images/**","/js/**","/animate/**","/bootstarp/**");
+
     }
 
     @Bean
