@@ -10,6 +10,7 @@ import javax.persistence.*;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     @Column(name = "username")
     private String userName;

@@ -17,6 +17,7 @@ import javax.persistence.Table;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     @Column(name = "service_name")
     private String serviceName;
