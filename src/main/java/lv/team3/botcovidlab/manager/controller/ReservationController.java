@@ -1,7 +1,7 @@
-package com.petproject.petproject.controller;
-import com.petproject.petproject.model.*;
-import com.petproject.petproject.security.UserDetailsServiceImpl;
-import com.petproject.petproject.service.ReservationService;
+package lv.team3.botcovidlab.manager.controller;
+import lv.team3.botcovidlab.manager.model.Reservation;
+import lv.team3.botcovidlab.manager.security.UserDetailsServiceImpl;
+import lv.team3.botcovidlab.manager.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;

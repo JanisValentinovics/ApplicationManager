@@ -1,7 +1,7 @@
-package com.petproject.petproject.controller;
+package lv.team3.botcovidlab.manager.controller;
 
-import com.petproject.petproject.model.User;
-import com.petproject.petproject.security.UserDetailsServiceImpl;
+import lv.team3.botcovidlab.manager.model.User;
+import lv.team3.botcovidlab.manager.security.UserDetailsServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;

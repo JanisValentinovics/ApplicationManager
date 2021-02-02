@@ -1,4 +1,4 @@
-package com.petproject.petproject.model;
+package lv.team3.botcovidlab.manager.model;
 
 public enum Permission {
     USERS_READ("reservations:read"),

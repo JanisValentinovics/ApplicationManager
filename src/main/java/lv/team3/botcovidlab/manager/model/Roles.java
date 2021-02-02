@@ -1,4 +1,4 @@
-package com.petproject.petproject.model;
+package lv.team3.botcovidlab.manager.model;
 
 import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
