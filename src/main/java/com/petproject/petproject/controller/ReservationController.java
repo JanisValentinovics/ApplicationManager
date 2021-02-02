@@ -1,10 +1,7 @@
 package com.petproject.petproject.controller;
 import com.petproject.petproject.model.*;
-import com.petproject.petproject.security.SecurityUser;
 import com.petproject.petproject.security.UserDetailsServiceImpl;
-import com.petproject.petproject.service.BookingService;
 import com.petproject.petproject.service.ReservationService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,12 +16,11 @@ import java.util.List;
 public class ReservationController {
     private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final ReservationService reservationService;
-    private final BookingService bookingService;
     @Autowired
-    public ReservationController(UserDetailsServiceImpl userDetailsServiceImpl, ReservationService reservationService, BookingService bookingService) {
+    public ReservationController(UserDetailsServiceImpl userDetailsServiceImpl, ReservationService reservationService) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.reservationService = reservationService;
-        this.bookingService = bookingService;
+
     }
 
     @GetMapping("/error")
@@ -42,10 +38,8 @@ public class ReservationController {
     @PreAuthorize("hasAuthority('reservations:read')")
     public String findAll(Model model ){
         List<Reservation> reservations = reservationService.findAll();
-         List<Booking> userBookings = bookingService.getAllUserBookings(getCurrentSessionUsername());
-           List<Reservation> userReservations = reservationService.findAllUserReservations(userBookings);
         model.addAttribute("reservations",reservations);
-        model.addAttribute("bookings", userReservations);
+
         return "reservation-list";
     }
 

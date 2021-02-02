@@ -1,6 +1,5 @@
 package com.petproject.petproject.service;
 
-import com.petproject.petproject.model.Booking;
 import com.petproject.petproject.model.Reservation;
 import com.petproject.petproject.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +40,7 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
-    public List<Reservation> findAllUserReservations(List<Booking> userBookings) {
-        List<Reservation> reservationList = new ArrayList<>();
-        for (int i =0; i<userBookings.size();i++){
-            Booking booking = userBookings.get(i);
-            reservationList.add(findById(booking.getReservationId()));
-        }
-        return reservationList;
-    }
+
     public Reservation setIsActive(Long id){
         Reservation reservation = reservationRepository.getOne(id);
         reservation.setAvailable(true);
