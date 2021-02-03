@@ -87,12 +87,13 @@ public class FirebaseService {
 
             Firestore db = FirestoreClient.getFirestore();
         ApiFuture<QuerySnapshot> future =
-                db.collection("patients").whereEqualTo("hasCough", true).get();
+                db.collection("patients").get();
 // future.get() blocks on response
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
         for (DocumentSnapshot document : documents) {
-
+            System.out.println(document.toObject(Patient.class).toString());
             arrayList.add(document.toObject(Patient.class));
+
         }
 
         return arrayList;
