@@ -1,7 +1,7 @@
-package com.petproject.petproject.security;
+package lv.team3.botcovidlab.manager.security;
 
-import com.petproject.petproject.model.Status;
-import com.petproject.petproject.model.User;
+import lv.team3.botcovidlab.manager.model.Status;
+import lv.team3.botcovidlab.manager.model.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

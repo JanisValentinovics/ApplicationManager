@@ -1,10 +1,7 @@
 package com.petproject.petproject.controller;
-
-import com.petproject.petproject.model.Reservation;
+import com.petproject.petproject.model.*;
 import com.petproject.petproject.security.UserDetailsServiceImpl;
 import com.petproject.petproject.service.ReservationService;
-import com.petproject.petproject.service.entityManager.FirebaseService;
-import com.petproject.petproject.service.entityManager.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +26,7 @@ public class ReservationController {
     public ReservationController(UserDetailsServiceImpl userDetailsServiceImpl, ReservationService reservationService) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.reservationService = reservationService;
+
     }
 
     @GetMapping("/error")
@@ -48,6 +46,7 @@ public class ReservationController {
         List<Patient> reservations = FirebaseService.getAllPatientsDetails();
 
         model.addAttribute("reservations",reservations);
+
         return "reservation-list";
     }
 

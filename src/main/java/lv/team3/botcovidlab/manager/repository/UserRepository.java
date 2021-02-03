@@ -1,5 +1,5 @@
-package com.petproject.petproject.repository;
-import com.petproject.petproject.model.User;
+package lv.team3.botcovidlab.manager.repository;
+import lv.team3.botcovidlab.manager.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
