@@ -27,33 +27,77 @@
         <div class="wrap-contact2">
 
 <form action="#" th:align="center" th:action="@{/reservation-update}" th:object="${reservation}" method="post">
-    <div th:align="center">
-    <label th:align="center">ID:</label>
-    <tr th:text="${reservation.id}" th:align="center"></tr>
-    <br/>
-        </div>
-    <div class="form-group" th:align="center">
-        <label class="col-md-4 control-label" >Service</label>
-        <div class="col-md-4">
-            <select th:field="*{serviceName}" id="firstName" name="firstName" class="form-control">
-                <option th:value="Haircut">Haircut</option>
-                <option th:value="NailsDesign">Nails Design</option>
-                <option th:value="Massage">Massage</option>
-                <option th:value="Makeup">Makeup</option>
-            </select>
 
+    <div class="form-group" th:align="center">
+        <label class="col-md-4 control-label" >FirstName</label>
+        <div class="col-md-4">
+            <input class="form-control" th:field="*{name}" type="text"  id="name" name="name">
         </div>
     </div>
     <div class="form-group" th:align="center">
-        <label class="col-md-4 control-label" >Date</label>
+        <label class="col-md-4 control-label" >Last Name</label>
         <div class="col-md-4" >
-            <input class="form-control" th:field="*{date}" type="text"  id="date" name="date">
+            <input class="form-control" th:field="*{lastName}" type="text"  id="lastName" name="lastName">
         </div>
     </div>
     <div class="form-group" th:align="center">
-        <label class="col-md-4 control-label" >Time</label>
+        <label class="col-md-4 control-label" >Chat Id</label>
         <div class="col-md-4" >
-            <input class="form-control" th:field="*{time}" type="text"  id="time" name="time">
+            <input class="form-control" th:field="*{chatId}" type="text"  id="chatId" name="chatId">
+        </div>
+    </div>
+    <div class="form-group" th:align="center">
+        <label class="col-md-4 control-label" >Personal Id</label>
+        <div class="col-md-4">
+            <input class="form-control" th:field="*{personalCode}" type="text"  id="personalCode" name="personalCode">
+        </div>
+    </div>
+    <div class="form-group" th:align="center">
+        <label class="col-md-4 control-label" >Temperature</label>
+        <div class="col-md-4" >
+            <input class="form-control" th:field="*{temperature}" type="text"  id="temperature" name="temperature">
+        </div>
+    </div>
+
+
+    <div class="form-group" th:align="center">
+        <div class="col-md-4" >
+            <div >
+                <label > Have been in contact with Covid-positive person</label>
+                <input type="checkbox" name="active" th:checked="${reservation.contactPerson}" />            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group" th:align="center">
+        <div class="col-md-4" >
+            <div >
+                <label > Has cough </label>
+                <input type="checkbox" name="active" th:checked="${reservation.hasCough}" />            </div>
+        </div>
+    </div>
+
+    <div class="form-group" th:align="center">
+        <div class="col-md-4" >
+            <div >
+                <label > Has troubles in breathing ?</label>
+                <input type="checkbox" name="active" th:checked="${reservation.hasTroubleBreathing}" />            </div>
+        </div>
+    </div>
+
+    <div class="form-group" th:align="center">
+        <div class="col-md-4" >
+            <div >
+                <label > Has headache ?</label>
+                <input type="checkbox" name="active" th:checked="${reservation.hasHeadache}" />            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group" th:align="center">
+        <label class="col-md-4 control-label" >Phone Number</label>
+        <div class="col-md-4" >
+            <input class="form-control" th:field="*{phoneNumber}" type="text"  id="phoneNumber" name="phoneNumber">
         </div>
     </div>
 
