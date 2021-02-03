@@ -1,5 +1,4 @@
-package com.petproject.petproject.service.entityManager;
-
+package lv.team3.botcovidlab.manager.service.entityManager;
 
 public class Patient {
      Long chatId;

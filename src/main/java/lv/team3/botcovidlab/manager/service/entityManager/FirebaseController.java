@@ -1,8 +1,8 @@
-package com.petproject.petproject.service.entityManager;
+package lv.team3.botcovidlab.manager.service.entityManager;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -15,7 +15,7 @@ public class FirebaseController {
 
     @GetMapping("/getPatientDetails")
     public Patient getPatient(@RequestParam String personalCode) throws InterruptedException, ExecutionException{
-        return firebaseService.getPatientDetails(personalCode);
+        return FirebaseService.getPatientDetails(personalCode);
     }
 
     @GetMapping("/getAllPatients")

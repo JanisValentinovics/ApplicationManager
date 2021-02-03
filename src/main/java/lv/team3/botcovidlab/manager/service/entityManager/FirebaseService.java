@@ -1,4 +1,4 @@
-package com.petproject.petproject.service.entityManager;
+package lv.team3.botcovidlab.manager.service.entityManager;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;

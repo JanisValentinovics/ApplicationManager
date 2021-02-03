@@ -1,7 +1,8 @@
-package com.petproject.petproject.controller;
-import com.petproject.petproject.model.*;
-import com.petproject.petproject.security.UserDetailsServiceImpl;
-import com.petproject.petproject.service.ReservationService;
+package lv.team3.botcovidlab.manager.controller;
+
+import lv.team3.botcovidlab.manager.security.UserDetailsServiceImpl;
+import lv.team3.botcovidlab.manager.service.entityManager.FirebaseService;
+import lv.team3.botcovidlab.manager.service.entityManager.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,12 +21,11 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/")
 public class ReservationController {
     private final UserDetailsServiceImpl userDetailsServiceImpl;
-    private final ReservationService reservationService;
+
 
     @Autowired
-    public ReservationController(UserDetailsServiceImpl userDetailsServiceImpl, ReservationService reservationService) {
+    public ReservationController(UserDetailsServiceImpl userDetailsServiceImpl) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
-        this.reservationService = reservationService;
 
     }
 

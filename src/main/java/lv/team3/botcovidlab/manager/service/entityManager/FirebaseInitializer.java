@@ -1,4 +1,4 @@
-package com.petproject.petproject.service.entityManager;
+package lv.team3.botcovidlab.manager.service.entityManager;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
