@@ -16,6 +16,7 @@ public class FirebaseService {
     private static DocumentReference documentReference;
     private static ApiFuture<DocumentSnapshot> future;
     private static CollectionReference collectionReference;
+
     public static boolean isPatientFound(String personalCode) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         documentReference = dbFirestore.collection(COL_NAME).document(personalCode);
@@ -26,16 +27,12 @@ public class FirebaseService {
 
     public static String savePatientDetails(Patient patient) throws InterruptedException, ExecutionException {
         String personalCode = patient.getPersonalCode();
-        if (isPatientFound(personalCode)) {
-            return "Patient with personal code " + personalCode + " already exists in the database";
-        } else {
-            Firestore dbFirestore = FirestoreClient.getFirestore();
-            ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("patients")
-                    .document(personalCode)
-                    .set(patient);
-            System.out.println("Patient with personal code " + personalCode + " added to database");
-            return collectionsApiFuture.get().getUpdateTime().toString();
-        }
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("patients")
+                .document(personalCode)
+                .set(patient);
+        System.out.println("Patient with personal code " + personalCode + " added to database");
+        return collectionsApiFuture.get().getUpdateTime().toString();
     }
 
     public static Patient createPatient(Long chatId, String name, String lastName,
@@ -82,10 +79,11 @@ public class FirebaseService {
         }
         return patient;
     }
+
     public static List<Patient> getAllPatientsDetails() throws InterruptedException, ExecutionException {
         ArrayList<Patient> arrayList = new ArrayList<>();
 
-            Firestore db = FirestoreClient.getFirestore();
+        Firestore db = FirestoreClient.getFirestore();
         ApiFuture<QuerySnapshot> future =
                 db.collection("patients").get();
 // future.get() blocks on response
@@ -98,13 +96,14 @@ public class FirebaseService {
 
         return arrayList;
     }
+
     public static String updatePatientDetails(Patient patient) throws InterruptedException, ExecutionException {
         String personalCode = patient.getPersonalCode();
         if (isPatientFound(personalCode)) {
             deletePatient(patient.getPersonalCode());
             savePatientDetails(patient);
-            System.out.println("Patient:"+patient.getPersonalCode()+" updated!");
-            return "Patient:"+patient.getPersonalCode()+" updated!";
+            System.out.println("Patient: " + patient.getPersonalCode() + " updated!");
+            return "Patient:" + patient.getPersonalCode() + " updated!";
         } else {
             System.out.println("Patient with personal code " + personalCode + " not found");
             return null;
@@ -127,11 +126,11 @@ public class FirebaseService {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<QuerySnapshot> patientQuery = dbFirestore.collection(COL_NAME).whereEqualTo("chatId", chatId).get();
         List<QueryDocumentSnapshot> entry = patientQuery.get().getDocuments();
-        if(entry.isEmpty()) {
+        if (entry.isEmpty()) {
             System.out.println("Patient with chatId " + chatId + " not found");
             return null;
         } else {
-            System.out.println("Patient with chatId "+ chatId + " found!");
+            System.out.println("Patient with chatId " + chatId + " found!");
             return entry.get(0).toObject(Patient.class);
         }
     }
@@ -140,11 +139,11 @@ public class FirebaseService {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<QuerySnapshot> patientQuery = dbFirestore.collection(COL_NAME).whereEqualTo("personalCode", personalId).get();
         List<QueryDocumentSnapshot> entry = patientQuery.get().getDocuments();
-        if(entry.isEmpty()) {
-            System.out.println("Patient with PersonalId " + personalId + " not found");
+        if (entry.isEmpty()) {
+            System.out.println("Patient with Personal Id " + personalId + " not found");
             return null;
         } else {
-            System.out.println("Patient with chatId "+ personalId + " found!");
+            System.out.println("Patient with Personal Id " + personalId + " found!");
             return entry.get(0).toObject(Patient.class);
         }
 
