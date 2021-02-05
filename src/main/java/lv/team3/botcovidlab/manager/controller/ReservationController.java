@@ -30,29 +30,27 @@ public class ReservationController {
     }
 
     @GetMapping("/error")
-    public String errorProcessing(){
+    public String errorProcessing() {
         return "redirect:reservations";
     }
 
     @GetMapping("/")
-    public String redirectToLogin(){
+    public String redirectToLogin() {
         return "login";
     }
 
 
     @GetMapping("/reservations")
     @PreAuthorize("hasAuthority('reservations:read')")
-    public String findAll(Model model ) throws ExecutionException, InterruptedException {
+    public String findAll(Model model) throws ExecutionException, InterruptedException {
         List<Patient> reservations = FirebaseService.getAllPatientsDetails();
-
-        model.addAttribute("reservations",reservations);
-
+        model.addAttribute("reservations", reservations);
         return "reservation-list";
     }
 
     @GetMapping("/reservation-create")
     @PreAuthorize("hasAuthority('reservations:write')")
-    public String createReservationForm(Patient patient){
+    public String createReservationForm(Patient patient) {
         return "reservation-create";
     }
 
@@ -85,12 +83,12 @@ public class ReservationController {
         return "redirect:/reservations";
     }
 
-    private String getCurrentSessionUsername(){
+    private String getCurrentSessionUsername() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
         if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername(); }
-        else {
+            username = ((UserDetails) principal).getUsername();
+        } else {
             username = principal.toString();
         }
         return username;
