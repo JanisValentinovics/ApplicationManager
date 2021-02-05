@@ -1,6 +1,6 @@
-package com.petproject.petproject.repository;
+package lv.team3.botcovidlab.manager.repository;
 
-import com.petproject.petproject.model.Reservation;
+import lv.team3.botcovidlab.manager.model.Reservation;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

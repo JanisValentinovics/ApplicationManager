@@ -26,64 +26,72 @@
     <div class="container-contact2">
         <div class="wrap-contact2">
 
-<div th:switch="${reservations}">
+
+            <div th:switch="${reservations}">
 
 
-    <h2 th:case="null">No reservations found!</h2>
+                <h2 th:case="null">No reservations found!</h2>
 
 
-    <div th:case="*">
-        <h2 th:align="center">Available Reservations</h2>
-        <table class="table-style">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Service</th>
-                <th>Date</th>
-                <th>Time</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="reservation : ${reservations}">
-                <div   th:if="${reservation.isAvailable() == true}">
-                    <td class="td-id2" th:text="${reservation.id}"></td>
-                    <td class="td-name2" th:text="${reservation.serviceName}"></td>
-                    <td class="td-date2" th:text="${reservation.date}"></td>
-                    <td class="td-time2" th:text="${reservation.time}"></td>
-                <div class="btn-container"><div sec:authorize="hasAuthority('reservations:write')">
-                    <td class="td-edit2"><a th:href="@{reservation-update/{id}(id=${reservation.id})}">Edit</a></td>
-                    <td class="td-delete2"><a th:href="@{reservation-delete/{id}(id=${reservation.id})}">Delete</a></td></div>
-                </div></div></tr>
+                <div th:case="*">
+                    <h2 th:align="center">Available Reservations</h2>
+                    <table class="table-style">
+                        <thead>
+                        <tr>
+                            <th>Personal ID</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Temperature</th>
+                            <th>Had conntacted</th>
+                            <th>Has cough</th>
+                            <th>Breathing troubles</th>
+                            <th>Headache</th>
+                            <th>Phone Number</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="reservation : ${reservations}">
+                            <div   >
+                                <td class="td-id2" th:text="${reservation.personalCode}"></td>
+                                <td class="td-name2" th:text="${reservation.name}"></td>
+                                <td class="td-date2" th:text="${reservation.lastName}"></td>
+                                <td class="td-time2" th:text="${reservation.temperature}"></td>
+                                <td class="td-time2" th:if="${reservation.contactPerson == false}" th:text="No"></td>
+                                <td class="td-time2" th:if="${reservation.contactPerson == true}" th:text="Yes"></td>
 
-            </tbody>
-        </table>
-        <div sec:authorize="!hasAuthority('reservations:write')">
-        <h2  th:align="center">Your Reservations</h2>
-        <table class="table-style">
-            <tbody>
-            <tr th:each="reservation : ${bookings}">
-                <div th:if="${reservation.isAvailable() == false}">
-                    <td th:text="${reservation.id}"></td>
-                    <td th:text="${reservation.serviceName}"></td>
-                    <td th:text="${reservation.date}"></td>
-                    <td th:text="${reservation.time}"></td>
-                    <td><a th:href="@{cancel/{id}(id=${reservation.id})}"  class="cncl-btn" >Cancel</a></td>
-                    </div></tr>
-            </tbody>
-        </table>
-        </div>
-    </div>
-    <p sec:authorize="hasAuthority('reservations:write')"><a href="reservation-create">Create reservation</a></p>
-        <form action="/logout" method="POST">
-            <div class="container-contact2-form-btn">
-                <div class="wrap-contact2-form-btn">
-                    <div class="contact2-form-bgbtn"></div>
-                    <button class="contact2-form-btn" type="submit">
-                        Logout
-                    </button>
+                                <td class="td-time2" th:if="${reservation.hasCough == false}" th:text="No"></td>
+                                <td class="td-time2" th:if="${reservation.hasCough == true}" th:text="Yes"></td>
+
+                                <td class="td-time2" th:if="${reservation.hasTroubleBreathing == false}" th:text="No"></td>
+                                <td class="td-time2" th:if="${reservation.hasTroubleBreathing == true}" th:text="Yes"></td>
+
+                                <td class="td-time2" th:if="${reservation.hasHeadache == false}" th:text="No"></td>
+                                <td class="td-time2" th:if="${reservation.hasHeadache == true}" th:text="Yes"></td>
+
+
+                                <td class="td-time2" th:text="${reservation.phoneNumber}"></td>
+                                <div class="btn-container"><div sec:authorize="hasAuthority('reservations:write')">
+                                    <td class="td-edit2"><a th:href="@{reservation-update/{id}(id=${reservation.personalCode})}">Edit</a></td>
+                                    <td class="td-delete2"><a th:href="@{reservation-delete/{id}(id=${reservation.personalCode})}">Delete</a></td></div>
+<!--                                    <td class="td-button2"><a th:href="@{apply/{id}(id=${reservation.personalCode})}"  class="apply-btn" >Apply</a></td>-->
+                                </div></div></tr>
+
+                        </tbody>
+                    </table>
+
+
                 </div>
-            </div>
-</form>
+<!--                <p sec:authorize="hasAuthority('reservations:write')"><a href="reservation-create">Create reservation</a></p>-->
+                <form action="/logout" method="POST">
+                    <div class="container-contact2-form-btn">
+                        <div class="wrap-contact2-form-btn">
+                            <div class="contact2-form-bgbtn"></div>
+                            <button class="contact2-form-btn" type="submit">
+                                Logout
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

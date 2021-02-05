@@ -1,25 +1,31 @@
-package com.petproject.petproject.controller;
-import com.petproject.petproject.model.*;
-import com.petproject.petproject.security.UserDetailsServiceImpl;
-import com.petproject.petproject.service.ReservationService;
+package lv.team3.botcovidlab.manager.controller;
+
+import lv.team3.botcovidlab.manager.security.UserDetailsServiceImpl;
+import lv.team3.botcovidlab.manager.service.entityManager.FirebaseService;
+import lv.team3.botcovidlab.manager.service.entityManager.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Controller
 @RequestMapping("/")
 public class ReservationController {
     private final UserDetailsServiceImpl userDetailsServiceImpl;
-    private final ReservationService reservationService;
+
+
     @Autowired
-    public ReservationController(UserDetailsServiceImpl userDetailsServiceImpl, ReservationService reservationService) {
+    public ReservationController(UserDetailsServiceImpl userDetailsServiceImpl) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
-        this.reservationService = reservationService;
 
     }
 
@@ -36,8 +42,9 @@ public class ReservationController {
 
     @GetMapping("/reservations")
     @PreAuthorize("hasAuthority('reservations:read')")
-    public String findAll(Model model ){
-        List<Reservation> reservations = reservationService.findAll();
+    public String findAll(Model model ) throws ExecutionException, InterruptedException {
+        List<Patient> reservations = FirebaseService.getAllPatientsDetails();
+
         model.addAttribute("reservations",reservations);
 
         return "reservation-list";
@@ -45,35 +52,36 @@ public class ReservationController {
 
     @GetMapping("/reservation-create")
     @PreAuthorize("hasAuthority('reservations:write')")
-    public String createReservationForm(Reservation reservation){
+    public String createReservationForm(Patient patient){
         return "reservation-create";
     }
 
     @PostMapping("/reservation-create")
     @PreAuthorize("hasAuthority('reservations:write')")
-    public String createReservation(Reservation reservation){
-        reservationService.saveReservation(reservation);
+    public String createReservation(Patient patient) throws ExecutionException, InterruptedException {
+        FirebaseService.savePatientDetails(patient);
         return "redirect:reservations";
     }
 
     @GetMapping("reservation-delete/{id}")
     @PreAuthorize("hasAuthority('reservations:write')")
-    public String deleteReservation(@PathVariable("id") Long id){
-        reservationService.deleteById(id);
+    public String deleteReservation(@PathVariable("id") String id) throws ExecutionException, InterruptedException {
+        FirebaseService.deletePatient(id);
         return "redirect:/reservations";
     }
 
     @GetMapping("/reservation-update/{id}")
     @PreAuthorize("hasAuthority('reservations:write')")
-    public String updateReservationForm(@PathVariable("id") Long id, Model model){
-        Reservation reservation = reservationService.findById(id);
+    public String updateReservationForm(@PathVariable("id") String id, Model model) throws ExecutionException, InterruptedException {
+        Patient reservation = FirebaseService.findByPersonaId(id);
         model.addAttribute("reservation", reservation);
         return "reservation-update";
     }
 
     @PostMapping("/reservation-update")
-    public String updateReservation(Reservation reservation){
-        reservationService.saveReservation(reservation);
+    public String updateReservation(Patient patient) throws ExecutionException, InterruptedException {
+        System.out.println(patient);
+        FirebaseService.updatePatientDetails(patient);
         return "redirect:/reservations";
     }
 

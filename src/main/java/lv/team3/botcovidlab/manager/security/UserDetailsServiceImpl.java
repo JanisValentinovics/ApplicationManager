@@ -1,12 +1,10 @@
-package com.petproject.petproject.security;
+package lv.team3.botcovidlab.manager.security;
 
-import com.petproject.petproject.model.Roles;
-import com.petproject.petproject.model.Status;
-import com.petproject.petproject.model.User;
-import com.petproject.petproject.repository.UserRepository;
+import lv.team3.botcovidlab.manager.model.Roles;
+import lv.team3.botcovidlab.manager.model.Status;
+import lv.team3.botcovidlab.manager.model.User;
+import lv.team3.botcovidlab.manager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
