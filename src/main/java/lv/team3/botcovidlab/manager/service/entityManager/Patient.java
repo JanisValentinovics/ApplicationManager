@@ -6,7 +6,7 @@ public class Patient {
      String lastName;
      String personalCode;
      String temperature;
-     boolean isContactPerson;
+     boolean contactPerson;
      boolean hasCough;
      boolean hasTroubleBreathing;
      boolean hasHeadache;
@@ -56,11 +56,11 @@ public class Patient {
     }
 
     public boolean isContactPerson() {
-        return isContactPerson;
+        return contactPerson;
     }
 
     public void setContactPerson(boolean contactPerson) {
-        isContactPerson = contactPerson;
+        this.contactPerson = contactPerson;
     }
 
     public boolean isHasCough() {
@@ -103,7 +103,7 @@ public class Patient {
                 ", lastName='" + lastName + '\'' +
                 ", personalCode='" + personalCode + '\'' +
                 ", temperature=" + temperature +
-                ", isContactPerson=" + isContactPerson +
+                ", isContactPerson=" + contactPerson +
                 ", hasCough=" + hasCough +
                 ", hasTroubleBreathing=" + hasTroubleBreathing +
                 ", hasHeadache=" + hasHeadache +

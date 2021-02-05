@@ -25,16 +25,10 @@
 <div class="bg-contact2" style="background-image: url('images/bg-01.jpg');">
     <div class="container-contact2">
         <div class="wrap-contact2">
-
-
             <div th:switch="${reservations}">
-
-
-                <h2 th:case="null">No reservations found!</h2>
-
-
+                <h2 th:case="null">No Applications Found!</h2>
                 <div th:case="*">
-                    <h2 th:align="center">Available Reservations</h2>
+                    <h2 th:align="center">Applications</h2>
                     <table class="table-style">
                         <thead>
                         <tr>
@@ -56,6 +50,7 @@
                                 <td class="td-name2" th:text="${reservation.name}"></td>
                                 <td class="td-date2" th:text="${reservation.lastName}"></td>
                                 <td class="td-time2" th:text="${reservation.temperature}"></td>
+
                                 <td class="td-time2" th:if="${reservation.contactPerson == false}" th:text="No"></td>
                                 <td class="td-time2" th:if="${reservation.contactPerson == true}" th:text="Yes"></td>
 
@@ -68,17 +63,15 @@
                                 <td class="td-time2" th:if="${reservation.hasHeadache == false}" th:text="No"></td>
                                 <td class="td-time2" th:if="${reservation.hasHeadache == true}" th:text="Yes"></td>
 
-
                                 <td class="td-time2" th:text="${reservation.phoneNumber}"></td>
                                 <div class="btn-container"><div sec:authorize="hasAuthority('reservations:write')">
                                     <td class="td-edit2"><a th:href="@{reservation-update/{id}(id=${reservation.personalCode})}">Edit</a></td>
                                     <td class="td-delete2"><a th:href="@{reservation-delete/{id}(id=${reservation.personalCode})}">Delete</a></td></div>
-<!--                                    <td class="td-button2"><a th:href="@{apply/{id}(id=${reservation.personalCode})}"  class="apply-btn" >Apply</a></td>-->
-                                </div></div></tr>
-
+                                </div>
+                            </div>
+                        </tr>
                         </tbody>
                     </table>
-
 
                 </div>
 <!--                <p sec:authorize="hasAuthority('reservations:write')"><a href="reservation-create">Create reservation</a></p>-->

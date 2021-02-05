@@ -21,9 +21,7 @@ public class AuthenticationController {
         return "login";
     }
     @GetMapping("/success")
-    public String getSuccessPage(){
-        return "success";
-    }
+    public String getSuccessPage(){ return "main-page"; }
     @GetMapping("/signup")
     public String getSignUpPage(){
         return "signup";
@@ -33,5 +31,4 @@ public class AuthenticationController {
         userDetailsServiceImpl.saveSimpleUser(user);
         return "redirect:/success";
     }
-
 }
